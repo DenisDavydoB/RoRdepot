@@ -8,6 +8,7 @@
   <table>
     <% @cart.line_items.each do |line_item| %>
       <tr>
+        <td ><%= button_to 'Del', @line_items, method: :delete %></td>
         <td class="quantity"><%= line_item.quantity %></td>
         <td><%= line_item.product.title %></td>
         <td class="price"><%= number_to_currency(line_item.total_price) %></td>

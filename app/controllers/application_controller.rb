@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    def index
+    def application
         @time = Time.now
     end
 end

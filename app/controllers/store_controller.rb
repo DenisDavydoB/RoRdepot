@@ -14,6 +14,8 @@ class StoreController < ApplicationController
   def index
     @products = Product.order(:title)
     @count = increment_counter
-    @shown_message = "You've been here #{@count} times" if @count >5
+    @shown_message = "You've been here #{@count} times" if @count > 5
+
+    @time = Time.now
   end
 end

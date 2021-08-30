@@ -8,7 +8,7 @@
   <table>
     <% @cart.line_items.each do |line_item| %>
       <tr>
-        <td ><%= button_to 'Del', @line_items, method: :delete %></td>
+        <td ><%= button_to 'Delete', line_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td class="quantity"><%= line_item.quantity %></td>
         <td><%= line_item.product.title %></td>
         <td class="price"><%= number_to_currency(line_item.total_price) %></td>
@@ -22,5 +22,6 @@
     </tfoot>
   </table>
   <%= button_to 'Empty cart', @cart, method: :delete, data: { confirm: 'Are you sure?' } %>
+ 
 
 </article>

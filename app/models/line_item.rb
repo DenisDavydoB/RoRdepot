@@ -5,5 +5,10 @@ class LineItem < ApplicationRecord
   def total_price
     product.price * quantity
   end
-  
+
+  def remove_product_pcs
+    puts "REMOVE ONE PCS"
+
+    quantity = 22
+  end
 end

@@ -1,7 +1,7 @@
 class LineItemsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:create]
-  before_action :set_line_item, only: %i[ show edit update destroy ]
+  before_action :set_line_item, only: %i[ show edit update destroy remove_product_pcs add_product_pcs]
 
   # GET /line_items or /line_items.json
   def index
@@ -40,6 +40,45 @@ class LineItemsController < ApplicationController
       end
     end
   end
+
+  def remove_product_pcs
+
+    if @line_item.quantity > 1
+      @line_item.quantity -= 1
+    else 
+      @line_item.destroy  
+    end
+
+    respond_to do |format|
+      if @line_item.save
+        format.html { redirect_to store_index_url, notice: "Item was successfully deleted." }
+        format.json { render :show, status: :created, location: @line_item }
+       # format.js { @current_item = @line_item }
+      else
+        format.html { render :new }
+        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
+  def add_product_pcs
+
+    @line_item.quantity += 1
+
+    respond_to do |format|
+      if @line_item.save
+        format.html { redirect_to store_index_url, notice: "Item was successfully added." }
+        format.json { render :show, status: :created, location: @line_item }
+       # format.js { @current_item = @line_item }
+      else
+        format.html { render :new }
+        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
 
   # PATCH/PUT /line_items/1 or /line_items/1.json
   def update

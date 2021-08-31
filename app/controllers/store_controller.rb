@@ -1,7 +1,9 @@
 class StoreController < ApplicationController
 
   include CurrentCart
+  skip_before_action :authorize
   before_action :set_cart
+
 
   def increment_counter
     if session[:counter].nil? 
@@ -18,7 +20,5 @@ class StoreController < ApplicationController
     @products = Product.order(:title)
     @count = increment_counter
     @shown_message = "You've been here #{@count} times" if @count > 5
-
-    @time = Time.now
   end
 end
